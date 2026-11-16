@@ -1,0 +1,22 @@
+name: Feature or recipe request
+description: Suggest an improvement, a new caption style or a new video recipe
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The problem or use case, not just the solution.
+    validations: { required: true }
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: For a new recipe, describe the scenes, length and formats (16:9 / 9:16). Links to reference videos are welcome.
+    validations: { required: true }
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd like to work on this myself

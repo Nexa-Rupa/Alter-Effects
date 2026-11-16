@@ -1,0 +1,14 @@
+{
+  "name": "@altereffects/cli",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "altereffects": "./bin/altereffects.mjs"
+  },
+  "dependencies": {
+    "@altereffects/engine": "0.1.0",
+    "@altereffects/shared": "0.1.0"
+  }
+}

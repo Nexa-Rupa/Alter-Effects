@@ -1,0 +1,94 @@
+# Local development: `npm run infra:up` starts only Postgres and S3 storage (RustFS);
+# (or skip Docker entirely: point DATABASE_URL at Neon and S3_* at Cloudflare R2 in .env);
+# run the web app and worker with `npm run dev`.
+#
+# Everything in Docker (self-hosting): `docker compose --profile app up -d --build`
+# then open http://localhost:3000. Settings come from .env (copy .env.example). Values below
+# override the connection settings so the containers talk to each other.
+#
+# Database/storage credentials can be changed with POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB and
+# S3_ACCESS_KEY_ID / S3_SECRET_ACCESS_KEY / S3_BUCKET in .env (they must match an existing volume).
+
+x-app-env: &app-env
+  DATABASE_URL: postgresql://${POSTGRES_USER:-altereffects}:${POSTGRES_PASSWORD:-altereffects}@postgres:5432/${POSTGRES_DB:-altereffects}
+  S3_ENDPOINT: http://s3:9000
+  S3_PUBLIC_ENDPOINT: ${S3_PUBLIC_ENDPOINT:-http://localhost:9000}
+  S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-altereffects}
+  S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-altereffects-secret}
+  S3_BUCKET: ${S3_BUCKET:-altereffects}
+  S3_FORCE_PATH_STYLE: "true"
+  APP_URL: ${APP_URL:-http://localhost:3000}
+  # Auth.js builds its callback/redirect URLs from this (otherwise the container bind address leaks in).
+  AUTH_URL: ${APP_URL:-http://localhost:3000}
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-altereffects}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-altereffects}
+      POSTGRES_DB: ${POSTGRES_DB:-altereffects}
+    ports: ["5433:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 5s
+      retries: 10
+
+  s3:
+    image: rustfs/rustfs:latest
+    environment:
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY_ID:-altereffects}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_ACCESS_KEY:-altereffects-secret}
+      RUSTFS_CONSOLE_ENABLE: "true"
+    ports: ["9000:9000", "9001:9001"]
+    volumes: [s3data:/data]
+
+  # One-shot: creates/updates the database schema, then exits.
+  migrate:
+    build: { context: ., dockerfile: apps/worker/Dockerfile }
+    image: altereffects-worker
+    environment: *app-env
+    command: ["npx", "prisma", "db", "push", "--schema", "packages/db/prisma/schema.prisma", "--skip-generate"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    profiles: ["app"]
+
+  # Render/ingest worker (headless Chromium + ffmpeg). Scale with `--scale worker=3`; RENDER_CONCURRENCY=1 each.
+  worker:
+    image: altereffects-worker
+    build: { context: ., dockerfile: apps/worker/Dockerfile }
+    env_file: [{ path: .env, required: false }]
+    environment:
+      <<: *app-env
+      CHROME_PATH: /usr/bin/chromium
+      FFMPEG_PATH: ffmpeg
+      FFPROBE_PATH: ffprobe
+      WORK_DIR: /tmp/altereffects
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      s3: { condition: service_started }
+    restart: unless-stopped
+    profiles: ["worker", "app"]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        APP_URL: ${APP_URL:-http://localhost:3000}
+        S3_PUBLIC_ENDPOINT: ${S3_PUBLIC_ENDPOINT:-http://localhost:9000}
+        CSP_EXTRA_ORIGINS: ${CSP_EXTRA_ORIGINS:-}
+    image: altereffects-web
+    env_file: [{ path: .env, required: false }]
+    environment: *app-env
+    ports: ["${WEB_PORT:-3000}:3000"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      s3: { condition: service_started }
+    restart: unless-stopped
+    profiles: ["app"]
+
+volumes:
+  pgdata:
+  s3data:

@@ -1,0 +1,10 @@
+{
+  "name": "@altereffects/fx",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Video effects engine (Python) vendored from claude-video-effects by Vibha Ramprakash, MIT. The TypeScript side only exposes the catalogue and plan validation.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "type": "module"
+}

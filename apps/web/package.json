@@ -1,0 +1,41 @@
+{
+  "name": "@altereffects/web",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/copy-runtimes.mjs",
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "prebuild": "node scripts/copy-runtimes.mjs"
+  },
+  "dependencies": {
+    "@altereffects/ai": "0.1.0",
+    "@altereffects/db": "0.1.0",
+    "@altereffects/engine": "0.1.0",
+    "@altereffects/fx": "0.1.0",
+    "@altereffects/shared": "0.1.0",
+    "@huggingface/transformers": "^4.3.0",
+    "@mediapipe/tasks-vision": "^1.2.3",
+    "bcryptjs": "^2.4.3",
+    "lucide-react": "^1.48.0",
+    "mediabunny": "^1.61.0",
+    "next": "^15.1.0",
+    "next-auth": "^5.0.0-beta.32",
+    "nodemailer": "^10.0.13",
+    "razorpay": "^2.9.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/nodemailer": "^8.0.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

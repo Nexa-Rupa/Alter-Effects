@@ -1,0 +1,19 @@
+{
+  "name": "@altereffects/worker",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/index.ts",
+    "start": "tsx --env-file=../../.env src/index.ts"
+  },
+  "dependencies": {
+    "@altereffects/ai": "0.1.0",
+    "@altereffects/db": "0.1.0",
+    "@altereffects/engine": "0.1.0",
+    "@altereffects/shared": "0.1.0",
+    "puppeteer-core": "^25.12.0",
+    "@altereffects/fx": "0.1.0"
+  }
+}

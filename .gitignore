@@ -1,0 +1,19 @@
+node_modules/
+.next/
+dist/
+.env
+.env.local
+.work/
+*.log
+out/
+coverage/
+packages/engine/samples/out/
+*.tsbuildinfo
+# local scratch (contains real people's names/roles)
+.work-*.json
+.claude/
+apps/web/public/ort/
+playwright-report/
+test-results/
+apps/web/public/mediapipe/wasm/
+apps/web/public/live/

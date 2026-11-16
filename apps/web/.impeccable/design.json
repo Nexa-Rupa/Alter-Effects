@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T00:00:00Z",
+  "title": "Design System: Alter Effects",
+  "extensions": {
+    "colorMeta": {
+      "stage": { "role": "neutral", "displayName": "Stage Black", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#141414", "#1c1c1c", "#2a2a2a", "#3d3d3d", "#5c5c5c", "#8f8f8f", "#d4d4d4"] },
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "#141414", "tonalRamp": ["#0a0a0a", "#141414", "#1c1c1c", "#2a2a2a", "#3d3d3d", "#5c5c5c", "#8f8f8f", "#d4d4d4"] },
+      "surface-raised": { "role": "neutral", "displayName": "Surface Raised", "canonical": "#1c1c1c", "tonalRamp": ["#0a0a0a", "#141414", "#1c1c1c", "#2a2a2a", "#3d3d3d", "#5c5c5c", "#8f8f8f", "#d4d4d4"] },
+      "fill-raised": { "role": "neutral", "displayName": "Raised Fill (5% white)", "canonical": "rgb(255 255 255 / 0.05)", "tonalRamp": ["rgb(255 255 255 / 0.03)", "rgb(255 255 255 / 0.04)", "rgb(255 255 255 / 0.05)", "rgb(255 255 255 / 0.06)", "rgb(255 255 255 / 0.08)", "rgb(255 255 255 / 0.10)", "rgb(255 255 255 / 0.15)", "rgb(255 255 255 / 0.30)"] },
+      "fill-hover": { "role": "neutral", "displayName": "Hover Fill (8% white)", "canonical": "rgb(255 255 255 / 0.08)" },
+      "media-well": { "role": "neutral", "displayName": "Media Well", "canonical": "#111111" },
+      "line": { "role": "neutral", "displayName": "Hairline (8% white)", "canonical": "rgb(255 255 255 / 0.08)" },
+      "ink": { "role": "primary", "displayName": "Off-White Ink", "canonical": "#fafafa", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#8f8f8f", "#a3a3a3", "#d4d4d4", "#e5e5e5", "#fafafa"] },
+      "ink-dim": { "role": "neutral", "displayName": "Secondary Grey", "canonical": "#8f8f8f", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#757575", "#8f8f8f", "#a3a3a3", "#d4d4d4", "#fafafa"] },
+      "logo-rose": { "role": "tertiary", "displayName": "Logo Rose", "canonical": "#fb7185", "tonalRamp": ["#4c0519", "#881337", "#be123c", "#e11d48", "#f43f5e", "#fb7185", "#fda4af", "#ffe4e6"] },
+      "logo-violet": { "role": "tertiary", "displayName": "Logo Violet", "canonical": "#a78bfa", "tonalRamp": ["#2e1065", "#4c1d95", "#6d28d9", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd", "#ede9fe"] },
+      "danger-bg": { "role": "neutral", "displayName": "Danger Ground", "canonical": "#2a1215" },
+      "danger-ink": { "role": "neutral", "displayName": "Danger Ink", "canonical": "#ff8a8a" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Landing hero and closing statement; per-letter kinetic entrance." },
+      "headline": { "displayName": "Headline", "purpose": "Section heads, often two clauses with the second in ink-dim." },
+      "title": { "displayName": "Title", "purpose": "Step titles and tool cards." },
+      "page-title": { "displayName": "Page Title", "purpose": "App page headers." },
+      "body-lead": { "displayName": "Body Lead", "purpose": "Supporting line under a hero, max ~34rem." },
+      "body": { "displayName": "Body", "purpose": "Interface and running copy." },
+      "label": { "displayName": "Label", "purpose": "Form labels and panel section names; sentence case, ink-dim." },
+      "mono": { "displayName": "Mono", "purpose": "Timecodes, percentages, keyframe values and counts only." }
+    },
+    "shadows": [
+      { "name": "portrait-lift", "value": "0 20px 40px -20px rgb(0 0 0 / 0.9)", "purpose": "Under a portrait render centred in a landscape gallery well. The only shadow in the system." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All entrances, reveals, card preview scale and the keyline draw." },
+      { "name": "letter-in", "value": "1s ease-out-expo; translateY(0.9em) rotate(6deg) blur(6px) -> rest; stagger 28ms after 120ms", "purpose": "Signature per-letter headline entrance." },
+      { "name": "reveal", "value": "opacity + translateY(18px), 0.9s ease-out-expo", "purpose": "Scroll reveal of sections, only once JS is present." },
+      { "name": "keyline", "value": "scaleX(0 -> 1), 1.4s ease-out-expo, 0.5s delay", "purpose": "Draws the ink line across the keyframe track." },
+      { "name": "card-preview-scale", "value": "scale(1.03), 700ms ease-out-expo", "purpose": "Inset preview grows on media-card hover while the render plays." },
+      { "name": "state-colour", "value": "200ms colour transition", "purpose": "Button, nav and link hover states." },
+      { "name": "marquee", "value": "38s linear infinite", "purpose": "Provider name strip." },
+      { "name": "reduced-motion", "value": "animations and transitions to 0.01ms; reveals visible; videos hold poster", "purpose": "prefers-reduced-motion: reduce." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "White pill for the one primary action per view.",
+      "html": "<button class=\"ds-btn-primary\">Start free <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 10px 24px; border: none; border-radius: 9999px; background: var(--color-fg, #fafafa); color: var(--color-bg, #0a0a0a); font: 500 15px/1.25 var(--font-sans, Geist, system-ui, sans-serif); cursor: pointer; transition: background-color 200ms, transform 200ms; } .ds-btn-primary:hover { background: #ffffff; } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #0a0a0a, 0 0 0 4px rgb(250 250 250 / 0.6); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Dark hairline pill for every secondary action.",
+      "html": "<button class=\"ds-btn-ghost\">Open the free editor</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 10px 20px; border: 1px solid rgb(255 255 255 / 0.1); border-radius: 9999px; background: rgb(255 255 255 / 0.03); color: var(--color-fg, #fafafa); font: 500 15px/1.25 var(--font-sans, Geist, system-ui, sans-serif); cursor: pointer; transition: background-color 200ms; } .ds-btn-ghost:hover { background: rgb(255 255 255 / 0.08); } .ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 2px rgb(250 250 250 / 0.6); }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive actions only.",
+      "html": "<button class=\"ds-btn-danger\">Delete video</button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 16px; border: none; border-radius: 9999px; background: #2a1215; color: #ff8a8a; box-shadow: 0 0 0 1px rgb(255 138 138 / 0.2); font: 500 14px/1.25 var(--font-sans, Geist, system-ui, sans-serif); cursor: pointer; transition: background-color 200ms; } .ds-btn-danger:hover { background: #3a171b; } .ds-btn-danger:focus-visible { outline: none; box-shadow: 0 0 0 2px rgb(255 138 138 / 0.6); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Faint fill, hairline, 12px radius, label above in ink-dim.",
+      "html": "<label class=\"ds-label\" for=\"ds-in\">Brand name</label><input id=\"ds-in\" class=\"ds-input\" placeholder=\"Example Co\" />",
+      "css": ".ds-label { display: block; margin-bottom: 6px; font: 500 12px/1.33 var(--font-sans, Geist, system-ui, sans-serif); color: #8f8f8f; } .ds-input { width: 100%; padding: 8px 12px; border: 1px solid rgb(255 255 255 / 0.1); border-radius: 12px; background: rgb(255 255 255 / 0.03); color: #fafafa; font: 400 14px/1.43 var(--font-sans, Geist, system-ui, sans-serif); outline: none; transition: border-color 150ms, box-shadow 150ms; } .ds-input::placeholder { color: #8f8f8f; } .ds-input:focus { border-color: rgb(255 255 255 / 0.3); box-shadow: 0 0 0 2px rgb(255 255 255 / 0.1); }"
+    },
+    {
+      "name": "Segmented Filter",
+      "kind": "chip",
+      "refersTo": "segmented",
+      "description": "Pill track of filter options; the selected option inverts to white.",
+      "html": "<div class=\"ds-seg\" role=\"tablist\"><button class=\"ds-seg-opt\" aria-selected=\"true\">All</button><button class=\"ds-seg-opt\">Kinetic type</button><button class=\"ds-seg-opt\">Brand films</button></div>",
+      "css": ".ds-seg { display: inline-flex; align-items: center; gap: 4px; padding: 4px; border-radius: 9999px; background: rgb(255 255 255 / 0.05); } .ds-seg-opt { padding: 6px 14px; border: none; border-radius: 9999px; background: transparent; color: #8f8f8f; font: 400 14px/1.43 var(--font-sans, Geist, system-ui, sans-serif); cursor: pointer; transition: color 150ms, background-color 150ms; } .ds-seg-opt:hover { color: #fafafa; } .ds-seg-opt[aria-selected=\"true\"] { background: #fafafa; color: #0a0a0a; } .ds-seg-opt:focus-visible { outline: 2px solid rgb(250 250 250 / 0.6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Media Card",
+      "kind": "card",
+      "refersTo": "media-card",
+      "description": "28px raised-fill card holding an 18px inset preview that scales on hover while the render plays.",
+      "html": "<a class=\"ds-media\" href=\"#\"><div class=\"ds-media-frame\"><div class=\"ds-media-inner\"></div></div><div class=\"ds-media-meta\"><span class=\"ds-media-name\">Manifesto</span><span class=\"ds-media-fam\">Kinetic type</span></div><p class=\"ds-media-sum\">25-second kinetic-typography brand film from your own footage.</p></a>",
+      "css": ".ds-media { display: block; max-width: 360px; color: #fafafa; text-decoration: none; } .ds-media-frame { padding: 16px; border-radius: 28px; background: rgb(255 255 255 / 0.05); transition: background-color 300ms; } .ds-media-inner { aspect-ratio: 4 / 3; border-radius: 18px; background: #111 linear-gradient(135deg, #f43f5e, #fb7185); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-media:hover .ds-media-frame { background: rgb(255 255 255 / 0.08); } .ds-media:hover .ds-media-inner { transform: scale(1.03); } .ds-media:focus-visible { outline: none; } .ds-media:focus-visible .ds-media-frame { box-shadow: 0 0 0 2px rgb(250 250 250 / 0.5); } .ds-media-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 12px; padding: 0 4px; } .ds-media-name { font: 500 16px/1.4 var(--font-sans, Geist, system-ui, sans-serif); letter-spacing: -0.02em; } .ds-media-fam { font: 400 12px/1.33 var(--font-sans, Geist, system-ui, sans-serif); color: #8f8f8f; } .ds-media-sum { margin: 4px 0 0; padding: 0 4px; font: 400 14px/1.43 var(--font-sans, Geist, system-ui, sans-serif); color: #8f8f8f; }"
+    },
+    {
+      "name": "Marketing Nav",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "64px bar; ink-dim links, current in ink; ghost and primary pills right.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-brand\">Alter<span> Effects</span></span><a class=\"ds-nav-link\" href=\"#\">Formats</a><a class=\"ds-nav-link\" aria-current=\"page\" href=\"#\">Pricing</a><span class=\"ds-nav-spacer\"></span><a class=\"ds-nav-ghost\" href=\"#\">Sign in</a><a class=\"ds-nav-cta\" href=\"#\">Start free</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 24px; height: 64px; padding: 0 32px; background: rgb(10 10 10 / 0.85); border-bottom: 1px solid rgb(255 255 255 / 0.07); font-family: var(--font-sans, Geist, system-ui, sans-serif); } .ds-nav-brand { font: 600 17px/1 var(--font-display, Sora, sans-serif); letter-spacing: -0.03em; color: #fafafa; } .ds-nav-brand span { color: #8f8f8f; font-weight: 500; } .ds-nav-link { font-size: 14px; color: #8f8f8f; text-decoration: none; transition: color 200ms; } .ds-nav-link:hover, .ds-nav-link[aria-current=\"page\"] { color: #fafafa; } .ds-nav-spacer { flex: 1; } .ds-nav-ghost, .ds-nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 16px; border-radius: 9999px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background-color 200ms; } .ds-nav-ghost { border: 1px solid rgb(255 255 255 / 0.1); background: rgb(255 255 255 / 0.03); color: #fafafa; } .ds-nav-ghost:hover { background: rgb(255 255 255 / 0.08); } .ds-nav-cta { background: #fafafa; color: #0a0a0a; } .ds-nav-cta:hover { background: #fff; } .ds-nav a:focus-visible { outline: 2px solid rgb(250 250 250 / 0.6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Kinetic Headline",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Signature: each letter enters on a staggered keyframe timeline; second line is the grey clause pattern applied to section heads.",
+      "html": "<h1 class=\"ds-kinetic\"><span style=\"--i:0\">M</span><span style=\"--i:1\">o</span><span style=\"--i:2\">t</span><span style=\"--i:3\">i</span><span style=\"--i:4\">o</span><span style=\"--i:5\">n</span><span class=\"ds-dim\"> without the timeline.</span></h1>",
+      "css": "@keyframes ds-letter-in { from { transform: translateY(0.9em) rotate(6deg); opacity: 0; filter: blur(6px); } to { transform: none; opacity: 1; filter: blur(0); } } .ds-kinetic { margin: 0; font: 500 64px/0.96 var(--font-display, Sora, sans-serif); letter-spacing: -0.045em; color: #fafafa; } .ds-kinetic > span[style] { display: inline-block; animation: ds-letter-in 1s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i) * 28ms + 120ms); } .ds-dim { color: #8f8f8f; } @media (prefers-reduced-motion: reduce) { .ds-kinetic > span[style] { animation: none; } }"
+    },
+    {
+      "name": "Keyframe Track",
+      "kind": "custom",
+      "refersTo": "mono",
+      "description": "Signature: hairline track with an ink keyline, diamond keyframes and mono timecodes.",
+      "html": "<div class=\"ds-track\"><div class=\"ds-track-line\"><div class=\"ds-track-key\"></div></div><div class=\"ds-track-stops\"><span><i></i><time>00:00</time></span><span><i></i><time>00:12</time></span><span><i></i><time>00:25</time></span></div></div>",
+      "css": "@keyframes ds-keyline { from { transform: scaleX(0); } to { transform: scaleX(1); } } .ds-track { position: relative; padding-top: 0; } .ds-track-line { position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: rgb(255 255 255 / 0.15); } .ds-track-key { height: 100%; background: #fafafa; transform-origin: 0 50%; animation: ds-keyline 1.4s cubic-bezier(0.16, 1, 0.3, 1) both 0.5s; } .ds-track-stops { position: relative; display: flex; justify-content: space-between; } .ds-track-stops span { display: flex; align-items: center; gap: 12px; } .ds-track-stops i { display: block; width: 14px; height: 14px; background: #fafafa; transform: rotate(45deg); box-shadow: 0 0 0 6px #0a0a0a; } .ds-track-stops time { padding: 0 8px; background: #0a0a0a; font: 400 12px/1 var(--font-mono, 'Geist Mono', monospace); font-variant-numeric: tabular-nums; color: #8f8f8f; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Work Is the Only Colour",
+    "overview": "A gallery-first, monochrome stage. The chrome is near-black, off-white and one grey; every chromatic pixel on screen is either the logo mark or the user's own renders and footage. The interface recedes so the motion can lead: big rounded media cards hold real renders autoplaying muted, and the headline itself is the one piece of interface that moves like the product, its letters entering on a staggered keyframe timeline.\n\nDensity is generous on the marketing surfaces (1400px container, 128 to 176px between sections, display type up to 6rem) and tighter in the app and free tools, where the same pills, raised fills and grey secondary text carry over at body size. Depth is tonal, not shadowed: surfaces are faint white fills on the black stage, separated by hairlines rather than boxes.\n\nThe system refuses the AI-video-tool default of neon gradient glow, glass panels and gradient headline text.",
+    "keyCharacteristics": [
+      "Near-black stage, off-white ink, one secondary grey; no chrome accent colour beyond the logo.",
+      "White pill for the primary action, dark hairline pill for everything else.",
+      "28px media cards holding an 18px inset preview that scales slightly on hover.",
+      "Sora 500 display with tight negative tracking; Geist for interface; Geist Mono only for timecodes and values.",
+      "Emphasis by a grey second clause, never by gradient or colour.",
+      "Exponential ease-out motion; per-letter headline entrance as the signature."
+    ],
+    "rules": [
+      { "name": "The Work Is the Only Colour Rule", "body": "No chrome element takes a hue. If something on screen is coloured and it is not the logo mark, it must be the user's render, footage or a format preview.", "section": "colors" },
+      { "name": "The One Grey Rule", "body": "Secondary text has one tone (ink-dim). Do not introduce a second grey for tertiary text; use size or weight instead.", "section": "colors" },
+      { "name": "The Grey Second Clause Rule", "body": "Emphasis in a heading is made by stepping its second clause back to ink-dim (\"Any AI.<grey> Your key or ours.</grey>\"). Never gradient text, never a coloured word. The legacy `text-gradient` utility resolves to ink-dim for this reason.", "section": "typography" },
+      { "name": "The No Kicker Rule", "body": "No eyebrow or kicker labels above headings: no small uppercase tracked line, no category tag sitting over an h1 or h2. The heading opens the section.", "section": "typography" },
+      { "name": "The Mono Means Numbers Rule", "body": "Geist Mono is reserved for timecodes and values. It is never a decorative label face.", "section": "typography" },
+      { "name": "The Format's Own Type Rule", "body": "Playfair Display appears only inside aesthetic-format previews, and Inter and Space Grotesk only as caption-font choices in the tools; they are the work's type, not the chrome's.", "section": "typography" },
+      { "name": "The No Glass Rule", "body": "Backdrop blur is a legibility tool for sticky bars and small overlays on footage, never a decorative panel material. No frosted cards, no glass hero panels, no glow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do let real renders carry the colour: autoplay them muted in 28px media cards with an 18px inset preview.",
+      "Do make emphasis with a grey second clause in ink-dim.",
+      "Do use the white pill for the one primary action per view and dark hairline pills for the rest.",
+      "Do set display and headlines in Sora 500 with negative tracking (-0.035em to -0.045em) and balanced wrapping.",
+      "Do use Geist Mono with tabular figures for timecodes, percentages and keyframe values.",
+      "Do move on the exponential ease-out (cubic-bezier(0.16, 1, 0.3, 1)) and honour reduced motion.",
+      "Do show a format as a typographic poster only when its look is set in type; formats whose look depends on footage appear once a real render exists."
+    ],
+    "donts": [
+      "Don't add colour to the chrome; the logo mark is the only brand colour.",
+      "Don't use gradient text, neon glow or gradient backgrounds in the interface.",
+      "Don't put eyebrow or kicker labels above headings.",
+      "Don't use glass or backdrop blur as decoration; it is reserved for sticky bars and small overlays on footage.",
+      "Don't use mono as a label or decorative face.",
+      "Don't put borders on media cards or wrap sections in boxes; use raised fills and hairlines.",
+      "Don't show stand-in imagery for formats whose look depends on footage."
+    ]
+  }
+}

@@ -1,0 +1,579 @@
+{
+  "source": "https://github.com/Vibha-Ramprakash/claude-video-effects",
+  "effects": [
+    {
+      "id": "noise",
+      "name": "Noise",
+      "description": "reels pile up behind your head, one every quarter second",
+      "options": {
+        "size": 0.34,
+        "images": null
+      }
+    },
+    {
+      "id": "lineup",
+      "name": "Lineup",
+      "description": "numbered tiles fan out in an arc above your head",
+      "options": {
+        "text": null
+      }
+    },
+    {
+      "id": "locked-on",
+      "name": "Locked On",
+      "description": "corner brackets snap onto your face and the camera follows you",
+      "options": {
+        "zoom": 1.35,
+        "text": "LOCKED ON"
+      }
+    },
+    {
+      "id": "orbit",
+      "name": "Orbit",
+      "description": "your reels circle your head: in front at the bottom, behind you at the top",
+      "options": {
+        "count": 6,
+        "size": 0.2,
+        "images": null,
+        "speed": 1.9
+      }
+    },
+    {
+      "id": "lean-in",
+      "name": "Lean In",
+      "description": "a fast punch-in on one word",
+      "options": {
+        "zoom": 1.45,
+        "speed": 0.18
+      }
+    },
+    {
+      "id": "backdrop-word",
+      "name": "Backdrop Word",
+      "description": "a giant word drops in behind you",
+      "options": {
+        "text": "CLAUDE",
+        "font": "bold",
+        "color": null
+      }
+    },
+    {
+      "id": "spotlight",
+      "name": "Spotlight",
+      "description": "kill the lights, keep you lit",
+      "options": {
+        "push": 1.1,
+        "text": null,
+        "color": null,
+        "font": "serif"
+      }
+    },
+    {
+      "id": "the-bill",
+      "name": "The Bill",
+      "description": "prints every instruction like a ticket, into the wall above your head",
+      "options": {
+        "text": "ORDER #1021|1x orbit|1x spotlight|1x lean-in|cut the dead air|TOTAL: 1 prompt"
+      }
+    },
+    {
+      "id": "moody",
+      "name": "Moody",
+      "description": "a moody colour grade: darker, softer, teal shadows",
+      "options": {
+        "grade": "moody"
+      }
+    },
+    {
+      "id": "swipe",
+      "name": "Swipe",
+      "description": "a before and after slider that sweeps across you",
+      "options": {
+        "grade": "moody"
+      }
+    },
+    {
+      "id": "todo",
+      "name": "Todo",
+      "description": "a checklist card beside your head that ticks off as you talk",
+      "options": {
+        "text": "drop your video into Claude|install the skill|type /effects",
+        "ticks": null,
+        "title": "TO DO"
+      }
+    },
+    {
+      "id": "tap",
+      "name": "Tap",
+      "description": "a Follow button pops up and flips to Following",
+      "options": {
+        "color": null
+      }
+    },
+    {
+      "id": "pause-point",
+      "name": "Pause Point",
+      "description": "freeze the frame and point at something with a hand-drawn arrow",
+      "options": {
+        "color": null,
+        "label_x": 0.72,
+        "text": "look here"
+      }
+    },
+    {
+      "id": "uninstall",
+      "name": "Uninstall",
+      "description": "a glitchy uninstall bar that breaks the frame apart",
+      "options": {
+        "text": "Uninstalling..."
+      }
+    },
+    {
+      "id": "reel-frame",
+      "name": "Reel Frame",
+      "description": "your video shrinks into an Instagram reel card",
+      "options": {
+        "text": "@your.handle"
+      }
+    },
+    {
+      "id": "shortcut-rain",
+      "name": "Shortcut Rain",
+      "description": "keyboard keys rain down behind you",
+      "options": {
+        "text": "cmd|/|C|V|Z|esc|tab|shift|enter|opt",
+        "count": 26
+      }
+    },
+    {
+      "id": "reject-stamp",
+      "name": "Reject Stamp",
+      "description": "a big red stamp slams onto the screen",
+      "options": {
+        "text": "REJECTED",
+        "color": null,
+        "angle": 12
+      }
+    },
+    {
+      "id": "countdown-flip",
+      "name": "Countdown Flip",
+      "description": "a 3, 2, 1 flip clock above your head",
+      "options": {
+        "from": 3
+      }
+    },
+    {
+      "id": "rabbit-hole",
+      "name": "Rabbit Hole",
+      "description": "the frame tunnels into itself, spinning",
+      "options": {
+        "ratio": 0.62,
+        "speed": 0.8,
+        "spin": 10
+      }
+    },
+    {
+      "id": "cover-star",
+      "name": "Cover Star",
+      "description": "you become a magazine cover, with the title behind your head",
+      "options": {
+        "text": "VIBE",
+        "color": null,
+        "issue": "THE AI ISSUE  ·  2026",
+        "lines": "22 effects|you can steal|no editor|needed",
+        "accent": null,
+        "lines_y": 0.575,
+        "right": "the art of the|effortless edit",
+        "right_y": 0.715
+      }
+    },
+    {
+      "id": "scribble",
+      "name": "Scribble",
+      "description": "marker doodles draw themselves around you",
+      "options": {
+        "color": null,
+        "text": "me!"
+      }
+    },
+    {
+      "id": "red-collage",
+      "name": "Red Collage",
+      "description": "black and white you, a giant red word behind, kinetic type stacked beside you",
+      "options": {
+        "color": null,
+        "text": "EDIT",
+        "lines": "ONE CLIP.|22 EFFECTS.|ZERO APPS.",
+        "tag": "REC  ·  RED COLLAGE"
+      }
+    },
+    {
+      "id": "split-headline",
+      "name": "Split Headline",
+      "description": "a clean headline card slides down and pushes you into the bottom of the frame",
+      "options": {
+        "height": 0.36,
+        "push": 0.72,
+        "color": null,
+        "text": "Claude|edits my|reels.",
+        "hl": "edits",
+        "pill": "in seconds ↗"
+      }
+    },
+    {
+      "id": "pastel-word",
+      "name": "Pastel Word",
+      "description": "a soft lavender backdrop, a giant word behind you and a profile card that gets followed",
+      "options": {
+        "text": "REELS",
+        "name": "Vibha",
+        "handle": "@vibha.in.progress  ·  ",
+        "role": "creator"
+      }
+    },
+    {
+      "id": "check-pills",
+      "name": "Check Pills",
+      "description": "grid-paper room, your reels pinned behind you and blue pills that get clicked",
+      "options": {
+        "handle": "@vibha.in.progress",
+        "board": "Reels  ·  22 effects",
+        "text": "Hook|Captions|Cuts|B-roll"
+      }
+    },
+    {
+      "id": "headline-box",
+      "name": "Headline Box",
+      "description": "a punch-in with a clean two-line headline, the second line in a white box",
+      "options": {
+        "zoom": 1.2,
+        "text": "How I got Claude|to edit my reels."
+      }
+    },
+    {
+      "id": "profile-wall",
+      "name": "Profile Wall",
+      "description": "your profile grid fills the wall behind you while a counter ticks up",
+      "options": {
+        "count": 197000,
+        "label": "views",
+        "name": "vibha.in.progress",
+        "sub": "top reel"
+      }
+    },
+    {
+      "id": "tier-list",
+      "name": "Tier List",
+      "description": "a tier list drops in front of you and Claude flies into S tier",
+      "options": {
+        "title": "best way to edit a reel?",
+        "others": "templates|timelines|apps|doing it by hand",
+        "item": "Claude"
+      }
+    },
+    {
+      "id": "broll-split",
+      "name": "Broll Split",
+      "description": "split screen: b-roll on top with a price-tag sticker, you on the bottom",
+      "options": {
+        "pick": 0,
+        "text": "4 hrs  →  4 min"
+      }
+    },
+    {
+      "id": "phone-fan",
+      "name": "Phone Fan",
+      "description": "your reels fan out like a hand of phones in front of you, under a two-line headline",
+      "options": {
+        "text": "22 effects.|zero editing apps.",
+        "images": null
+      }
+    },
+    {
+      "id": "dot-reveal",
+      "name": "Dot Reveal",
+      "description": "your shot builds itself out of glowing dots, then snaps into the full picture",
+      "options": {
+        "cell": 0.017,
+        "color": null,
+        "bg": null
+      }
+    },
+    {
+      "id": "headline-wall",
+      "name": "Headline Wall",
+      "description": "a wall of your own reel headlines piles up behind your head, then your total views pop in front",
+      "options": {
+        "text": null,
+        "count": 13,
+        "gap": 0.09,
+        "total": "672K",
+        "label": "views from 7 reels"
+      }
+    },
+    {
+      "id": "checklist",
+      "name": "Checklist",
+      "description": "a Claude task list builds under your chin: each step spins, then ticks green",
+      "options": {
+        "text": null,
+        "title": "Claude is editing your clip"
+      }
+    },
+    {
+      "id": "glass-widgets",
+      "name": "Glass Widgets",
+      "description": "frosted glass phone widgets and mini artifacts float around your head, with an Edited by Claude pill",
+      "options": {
+        "grade": "warm",
+        "dark": 0.2,
+        "title": "Claude",
+        "text": "22",
+        "sub": "effects|one clip",
+        "label": "glass UI",
+        "name": "Vibha",
+        "handle": "@vibha.in.progress",
+        "pill": "Edited by |Claude",
+        "song": "soft UI pops",
+        "day": "WED",
+        "date": "21",
+        "event": "Post 2 reels · tonight"
+      }
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "description": "a dark red cinematic grade with an editing timeline, a REC timecode and a glowing playhead",
+      "options": {
+        "color": null,
+        "tc": "REC",
+        "text": "AUTO-EDIT",
+        "sub": "timeline by Claude"
+      }
+    },
+    {
+      "id": "comment-box",
+      "name": "Comment Box",
+      "description": "an Instagram comments sheet above your head types your word, posts it, gets a heart and your reply",
+      "options": {
+        "text": "EFFECTS",
+        "handle": "vibha.in.progress",
+        "reply": "Sent you the pack",
+        "chip": "22 effects"
+      }
+    },
+    {
+      "id": "liquid-glass-graph",
+      "name": "Liquid Glass Graph",
+      "description": "a liquid glass card floats under your chin while a graph climbs and the number counts up",
+      "options": {
+        "text": "RETENTION",
+        "from": "0",
+        "to": "59%",
+        "color": null,
+        "donut": "29%::ERASE share",
+        "kpi": "672K::views · top 7 reels",
+        "bars": "197|140|124|83|50::top reels · K views"
+      }
+    },
+    {
+      "id": "carousel-spin",
+      "name": "Carousel Spin",
+      "description": "your reels spin around you in a 3D carousel, then slow to a stop",
+      "options": {
+        "size": 0.3,
+        "images": null,
+        "turns": 1.1
+      }
+    },
+    {
+      "id": "match-cut",
+      "name": "Match Cut",
+      "description": "news pages cut on one word, locked in place behind your head",
+      "options": {
+        "text": "Claude",
+        "color": null
+      }
+    },
+    {
+      "id": "apple-toggles",
+      "name": "Apple Toggles",
+      "description": "an iPhone settings card under your chin flips its switches on, one line at a time",
+      "options": {
+        "text": "One clip|Type /effects|Zero editing apps",
+        "pos": "above",
+        "zoom": 1.12,
+        "ticks": null,
+        "color": null,
+        "overlap": 0.08
+      }
+    },
+    {
+      "id": "led-sign",
+      "name": "Led Sign",
+      "description": "the lights drop and a glowing LED sign types itself out behind you",
+      "options": {
+        "push": 1.08,
+        "text": "CLAUDE",
+        "color": null
+      }
+    },
+    {
+      "id": "slow-push",
+      "name": "Slow Push",
+      "description": "a slow cinematic push-in from the wide shot to your face, the room melting out of focus",
+      "options": {
+        "zoom": 1.6,
+        "blur": 0.006
+      }
+    },
+    {
+      "id": "over-the-shoulder-zoom",
+      "name": "Over The Shoulder Zoom",
+      "description": "the camera pushes into one top corner, a liquid glass graph pops beside your head, then the other corner with a second graph",
+      "options": {
+        "zoom": 2,
+        "text": null,
+        "to": null
+      }
+    },
+    {
+      "id": "messages",
+      "name": "Messages",
+      "description": "iMessage notifications pop in one after another, creamy glass with a soft glow, stacking up above the bottom of the frame",
+      "options": {
+        "text": null,
+        "title": "Messages",
+        "y": 0.61
+      }
+    },
+    {
+      "id": "place-in-grid",
+      "name": "Place In Grid",
+      "description": "you shrink into the centre tile of your 3x3 profile grid on frosted glass, then 8 of your reels pop in around you, one per frame, view counts on every tile",
+      "options": {
+        "views": null,
+        "images": null
+      }
+    },
+    {
+      "id": "tape-label",
+      "name": "Tape Label",
+      "description": "a strip of yellow tape with your line lands on your chest",
+      "options": {
+        "text": "your own reels"
+      }
+    },
+    {
+      "id": "select-resize",
+      "name": "Select Resize",
+      "description": "a blue selection box grabs your number and a cursor drags it bigger",
+      "options": {
+        "text": "2X"
+      }
+    },
+    {
+      "id": "wave-trim",
+      "name": "Wave Trim",
+      "description": "the silent parts of your voice are trimmed away on screen until only your words are left",
+      "options": {}
+    },
+    {
+      "id": "huge-strike",
+      "name": "Huge Strike",
+      "description": "one huge serif word fills the wall behind you, then a red line crosses it out",
+      "options": {
+        "text": "8 HOURS",
+        "at": 0.6
+      }
+    },
+    {
+      "id": "crayon-write",
+      "name": "Crayon Write",
+      "description": "a red crayon writes your word behind your head, then underlines it",
+      "options": {
+        "text": "NOBODY"
+      }
+    },
+    {
+      "id": "fan-build",
+      "name": "Fan Build",
+      "description": "your reel covers deal into a fan behind your head, one card at a time",
+      "options": {
+        "count": 13,
+        "images": null
+      }
+    }
+  ],
+  "aliases": {
+    "the-noise": "noise",
+    "the-lineup": "lineup",
+    "bill": "the-bill",
+    "to-do": "todo",
+    "the-todo": "todo",
+    "the-to-do": "todo",
+    "the-tap": "tap",
+    "follow": "tap",
+    "comment": "comment-box",
+    "pause": "pause-point",
+    "pause-and-point": "pause-point",
+    "backdrop": "backdrop-word",
+    "stamp": "reject-stamp",
+    "countdown": "countdown-flip",
+    "cover": "cover-star",
+    "rain": "shortcut-rain",
+    "glass": "glass-widgets",
+    "widgets": "glass-widgets",
+    "collage": "red-collage",
+    "split": "split-headline",
+    "pastel": "pastel-word",
+    "pills": "check-pills",
+    "auto-edit": "timeline",
+    "headline": "headline-box",
+    "wall": "profile-wall",
+    "tiers": "tier-list",
+    "tier": "tier-list",
+    "broll": "broll-split",
+    "b-roll": "broll-split",
+    "fan": "phone-fan",
+    "dots": "dot-reveal",
+    "headlines": "headline-wall",
+    "tasks": "checklist",
+    "liquid-glass": "liquid-glass-graph",
+    "glass-graph": "liquid-glass-graph",
+    "carousel": "carousel-spin",
+    "match": "match-cut",
+    "toggles": "apple-toggles",
+    "led": "led-sign",
+    "push": "slow-push",
+    "push-in": "slow-push",
+    "ots": "over-the-shoulder-zoom",
+    "shoulder-zoom": "over-the-shoulder-zoom",
+    "corner-zoom": "over-the-shoulder-zoom",
+    "tape": "tape-label",
+    "select": "select-resize",
+    "resize": "select-resize",
+    "trim": "wave-trim",
+    "strike": "huge-strike",
+    "crayon": "crayon-write",
+    "deal": "fan-build",
+    "imessage": "messages",
+    "texts": "messages",
+    "notifications": "messages",
+    "grid": "place-in-grid",
+    "profile-grid": "place-in-grid"
+  },
+  "looks": [
+    {
+      "id": "glitter-spotlight",
+      "effect": "spotlight",
+      "look": "sparkle"
+    },
+    {
+      "id": "glitter",
+      "effect": "spotlight",
+      "look": "sparkle"
+    }
+  ]
+}

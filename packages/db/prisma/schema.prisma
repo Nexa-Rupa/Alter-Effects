@@ -1,0 +1,403 @@
+// Alter Effects — data model (multi-tenant: Organisation → Brands → Videos)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  EDITOR
+  REVIEWER
+}
+
+enum OrgType {
+  DIRECT
+  AGENCY
+}
+
+enum Plan {
+  FREE
+  CREATOR
+  TEAM
+  AGENCY
+}
+
+enum Provider {
+  ANTHROPIC
+  OPENAI
+  GEMINI
+  OPENROUTER
+  CUSTOM
+}
+
+enum AssetKind {
+  VIDEO
+  IMAGE
+  LOGO
+  WEBPAGE
+  THUMBNAIL
+  AUDIO
+}
+
+enum AssetStatus {
+  UPLOADED
+  PROCESSING
+  READY
+  FAILED
+}
+
+enum VideoStatus {
+  DRAFT
+  STORYBOARDING
+  AWAITING_APPROVAL
+  APPROVED
+  RENDERING
+  DELIVERED
+  FAILED
+}
+
+enum JobType {
+  INGEST
+  TAG
+  TRANSCRIBE
+  STORYBOARD
+  COMPOSE
+  GATES
+  TTS
+  RENDER
+  EFFECTS
+}
+
+enum JobStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  passwordHash String
+  /// Set when the password changes; sessions issued before it are rejected.
+  passwordChangedAt DateTime?
+  createdAt    DateTime  @default(now())
+  members      Member[]
+  videos       Video[]   @relation("VideoCreator")
+  reviewNotes  ReviewNote[]
+  passwordResets PasswordReset[]
+}
+
+/// One-time password reset link. Only the SHA-256 of the token is stored.
+model PasswordReset {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Organization {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  type        OrgType       @default(DIRECT)
+  industry    String?
+  plan        Plan          @default(FREE)
+  credits     Int           @default(2)
+  planRenewsAt DateTime?
+  createdAt   DateTime      @default(now())
+  members     Member[]
+  invites     Invite[]
+  brands      Brand[]
+  providerKeys ProviderKey[]
+  routing     ModelRouting[]
+  videos      Video[]
+  ledger      CreditLedger[]
+  payments    Payment[]
+}
+
+model Member {
+  id        String       @id @default(cuid())
+  orgId     String
+  userId    String
+  role      Role         @default(EDITOR)
+  // null = access to every brand; otherwise a list of brand ids
+  brandIds  String[]
+  createdAt DateTime     @default(now())
+  org       Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([orgId, userId])
+}
+
+model Invite {
+  id        String       @id @default(cuid())
+  orgId     String
+  email     String
+  role      Role         @default(EDITOR)
+  token     String       @unique
+  acceptedAt DateTime?
+  createdAt DateTime     @default(now())
+  org       Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+model Brand {
+  id           String       @id @default(cuid())
+  orgId        String
+  name         String
+  website      String?
+  logoAssetId  String?
+  // brand tokens consumed by recipes
+  colors       Json         // { primary, accent, ink, paper, muted }
+  fonts        Json         // { display, body }
+  toneWords    String[]
+  bannedClaims String[]
+  facts        String?      // verified facts the AI may use (awards, founding year, …)
+  defaultRecipes String[]
+  createdAt    DateTime     @default(now())
+  org          Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  assets       Asset[]
+  videos       Video[]
+  variants     RecipeVariant[]
+}
+
+model ProviderKey {
+  id          String       @id @default(cuid())
+  orgId       String
+  provider    Provider
+  label       String?
+  // AES-256-GCM encrypted; never returned to the browser
+  cipherText  String
+  last4       String
+  baseUrl     String?
+  monthlyCapUsd Float      @default(50)
+  monthSpendUsd Float      @default(0)
+  spendMonth  String?      // "2026-10"
+  createdAt   DateTime     @default(now())
+  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@unique([orgId, provider])
+}
+
+// Which provider + model runs each AI stage for an organisation
+model ModelRouting {
+  id        String       @id @default(cuid())
+  orgId     String
+  stage     String       // tag | storyboard | review | transcribe | tts
+  provider  String       // ANTHROPIC | OPENAI | GEMINI | OPENROUTER | CUSTOM | MANAGED
+  model     String
+  org       Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@unique([orgId, stage])
+}
+
+model Asset {
+  id          String      @id @default(cuid())
+  brandId     String
+  kind        AssetKind
+  status      AssetStatus @default(UPLOADED)
+  source      String      // upload | url | channel
+  sourceUrl   String?
+  title       String?
+  storageKey  String?     // original file in object storage
+  mime        String?
+  width       Int?
+  height      Int?
+  durationSec Float?
+  rightsConfirmed Boolean @default(false)
+  // ingest outputs
+  thumbKey    String?
+  sheetKey    String?     // contact sheet
+  segments    Json?       // [{start,end,thumbKey}]
+  // AI tags: { real, orientation, faces:[{x,y,w,h}], captionZone, quality, description, usable, bestIn, bestOut, people:[...] }
+  tags        Json?
+  transcript  Json?       // { words:[{w,start,end}] }  (ms)
+  meta        Json?       // e.g. page text, person name/role for portrait tiles
+  error       String?
+  createdAt   DateTime    @default(now())
+  brand       Brand       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+}
+
+model RecipeVariant {
+  id        String   @id @default(cuid())
+  brandId   String
+  recipeId  String
+  name      String
+  overrides Json     // { colors?, fonts?, motion?: 0.5..1.5 }
+  createdAt DateTime @default(now())
+  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+}
+
+model Video {
+  id          String       @id @default(cuid())
+  orgId       String
+  brandId     String
+  creatorId   String
+  title       String
+  recipeId    String
+  recipeVersion String
+  variantId   String?
+  seed        Int
+  aspect      String       // 16:9 | 9:16
+  durationSec Int
+  brief       String?
+  voMode      String       @default("script") // script | tts | upload | none
+  status      VideoStatus  @default(DRAFT)
+  creditCost  Int          @default(1)
+  charged     Boolean      @default(false)
+  error       String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  brand       Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  creator     User         @relation("VideoCreator", fields: [creatorId], references: [id])
+  storyboards Storyboard[]
+  jobs        Job[]
+  renders     Render[]
+  notes       ReviewNote[]
+}
+
+model Storyboard {
+  id        String   @id @default(cuid())
+  videoId   String
+  version   Int
+  slots     Json     // recipe slot values
+  vo        Json     // [{ text, start, end }]
+  sources   Json?    // claim → source reference
+  authoredBy String  // ai | user
+  createdAt DateTime @default(now())
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([videoId, version])
+}
+
+model Job {
+  id         String    @id @default(cuid())
+  videoId    String?
+  assetId    String?
+  type       JobType
+  status     JobStatus @default(QUEUED)
+  kind       String    @default("CODE") // CODE | AI
+  provider   String?
+  model      String?
+  tokensIn   Int       @default(0)
+  tokensOut  Int       @default(0)
+  costUsd    Float     @default(0)
+  attempts   Int       @default(0)
+  progress   Float     @default(0)
+  log        String?
+  result     Json?
+  error      String?
+  startedAt  DateTime?
+  finishedAt DateTime?
+  createdAt  DateTime  @default(now())
+  video      Video?    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+}
+
+model Render {
+  id          String   @id @default(cuid())
+  videoId     String
+  storyboardVersion Int
+  preview     Boolean  @default(false)
+  mp4Key      String?
+  posterKey   String?
+  srtKey      String?
+  voSheetKey  String?
+  projectKey  String?
+  gateReport  Json?
+  durationSec Float?
+  createdAt   DateTime @default(now())
+  video       Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+}
+
+model CreditLedger {
+  id        String       @id @default(cuid())
+  orgId     String
+  delta     Int
+  reason    String       // plan_grant | purchase | video_render | refund
+  refId     String?
+  createdAt DateTime     @default(now())
+  org       Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id            String       @id @default(cuid())
+  orgId         String
+  provider      String       @default("razorpay")
+  orderId       String       @unique
+  paymentId     String?
+  plan          Plan?
+  credits       Int          @default(0)
+  amountPaise   Int
+  currency      String       @default("INR")
+  status        String       @default("created") // created | paid | failed
+  createdAt     DateTime     @default(now())
+  org           Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+// Background work queue (web enqueues, worker claims with FOR UPDATE SKIP LOCKED). Replaces Redis/BullMQ.
+model QueueJob {
+  id         String    @id @default(cuid())
+  queue      String    // asset | storyboard | render
+  name       String
+  data       Json
+  status     String    @default("queued") // queued | running | done | failed
+  runAt      DateTime  @default(now())
+  lockedAt   DateTime?
+  attempts   Int       @default(0)
+  error      String?
+  createdAt  DateTime  @default(now())
+  finishedAt DateTime?
+
+  @@index([queue, status, runAt])
+}
+
+// Fixed-window rate-limit counters shared by every web instance. Replaces Redis.
+model RateLimit {
+  key   String   @id
+  count Int
+  reset DateTime
+}
+
+enum NoteStatus {
+  OPEN  // waiting for a fix
+  SENT  // sent to the AI with a redraft request; check the new version
+  FIXED // a reviewer confirmed the fix
+}
+
+/// A review note pinned to a frame (or range) of a storyboard version, made in the live player.
+/// Coordinates are fractions of the canvas, so notes survive any player size.
+model ReviewNote {
+  id                String     @id @default(cuid())
+  videoId           String
+  authorId          String
+  storyboardVersion Int        // version the note was left on
+  t                 Float      // seconds
+  tEnd              Float?     // end of a range note
+  x                 Float?     // pin, 0..1 of the canvas width
+  y                 Float?
+  drawing           Json?      // [{ c: colour, p: [[x,y],…] }] strokes, 0..1 of the canvas
+  sceneId           String?
+  text              String
+  status            NoteStatus @default(OPEN)
+  sentInVersion     Int?       // storyboard version the AI wrote in answer to this note
+  reopened          Int        @default(0) // times a check found it "still there"
+  resolvedAt        DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  video             Video      @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  author            User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([videoId, status])
+}

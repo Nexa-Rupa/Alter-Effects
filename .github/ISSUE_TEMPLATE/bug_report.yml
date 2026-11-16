@@ -1,0 +1,37 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Please **don't** include API keys, passwords or private footage. For security issues, use [private vulnerability reporting](../security/advisories/new) instead.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [Free subtitle generator, Free video editor, Web app (brands / videos / storyboard), Render worker, Recipes / engine, AI providers, Billing, CLI / agent kit, Self-hosting / Docker, Other]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations: { required: true }
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Go to …\n2. Click …\n3. See error"
+    validations: { required: true }
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Browser console, `npm run dev` output or worker logs. Remove secrets first.
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "e.g. Chrome 140 on Windows 11, Node 22, self-hosted with Docker"
+    validations: { required: true }

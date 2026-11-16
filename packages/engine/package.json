@@ -1,0 +1,35 @@
+{
+  "name": "@altereffects/engine",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "sample": "tsx scripts/render-sample.ts",
+    "test": "tsx scripts/test-recipes.ts"
+  },
+  "dependencies": {
+    "@altereffects/shared": "0.1.0",
+    "@fontsource/dm-sans": "^5.1.0",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "@fontsource/manrope": "^5.1.0",
+    "@fontsource/outfit": "^5.1.0",
+    "@fontsource/playfair-display": "^5.1.0",
+    "@fontsource/plus-jakarta-sans": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
+    "gsap": "^3.12.5",
+    "puppeteer-core": "^25.12.0",
+    "zod": "^4.1.0"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./recipes": "./src/recipes/index.ts",
+    "./claims": "./src/claims.ts",
+    "./types": "./src/types.ts",
+    "./page": "./src/page.ts",
+    "./compose": "./src/compose.ts"
+  },
+  "type": "module"
+}

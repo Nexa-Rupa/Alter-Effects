@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Alter Effects — "the work is the only colour".
+   Neutral near-black stage, raised surfaces as faint white fills, off-white type, one grey for secondary text.
+   White pills for primary actions, dark pills for the rest. The logo mark is the only brand colour in the chrome;
+   everything else that has colour is the user's own footage. */
+@theme {
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1c1c1c;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-fg: #fafafa;
+  --color-dim: #8f8f8f;           /* 6.2:1 on bg */
+  /* "brand" is the selection / emphasis colour across app pages: off-white, so the chrome stays monochrome. */
+  --color-brand: #fafafa;
+  --color-brand-dark: #d4d4d4;
+  --color-violet: #a3a3a3;
+  /* The only chromatic signal in the chrome: the logo's rose, used for record/playhead-style marks. */
+  --color-signal: #fb7185;
+  --color-ink: #fafafa;
+  --color-mist: #0a0a0a;
+  --font-sans: var(--font-geist), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-geist), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-mono-jb), ui-monospace, monospace;
+  --radius-card: 28px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes letter-in { from { transform: translateY(0.9em) rotate(6deg); opacity: 0; filter: blur(6px) } to { transform: none; opacity: 1; filter: blur(0) } }
+@keyframes keyline { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+
+@utility card { @apply rounded-[20px] bg-white/[0.04] ring-1 ring-white/[0.06]; }
+@utility media-card { @apply rounded-[var(--radius-card)] bg-white/[0.05] p-3 sm:p-4; }
+@utility btn { @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/60 focus-visible:ring-offset-2 focus-visible:ring-offset-bg; }
+@utility btn-primary { @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-fg px-5 py-2 text-sm font-medium text-bg transition-[background-color,transform] duration-200 hover:bg-white active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/60 focus-visible:ring-offset-2 focus-visible:ring-offset-bg; }
+@utility btn-ghost { @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-fg transition-colors duration-200 hover:bg-white/[0.08] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/60; }
+@utility btn-danger { @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#2a1215] px-4 py-2 text-sm font-medium text-[#ff8a8a] ring-1 ring-[#ff8a8a]/20 transition-colors hover:bg-[#3a171b] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8a8a]/60; }
+@utility input { @apply w-full rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-fg placeholder:text-dim outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10 disabled:opacity-60; }
+@utility label { @apply mb-1.5 block text-xs font-medium text-dim; }
+@utility pill { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium; }
+/* Emphasis by tone, never by gradient: the second half of a headline steps back to the secondary grey. */
+@utility text-gradient { @apply text-dim; }
+@utility glass { @apply border border-white/[0.07] bg-[#0a0a0a]/80 backdrop-blur-xl; }
+@utility segmented { @apply inline-flex items-center gap-1 rounded-full bg-white/[0.05] p-1; }
+
+@layer base {
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  *, ::before, ::after { border-color: var(--color-line); }
+  body { @apply bg-bg text-fg antialiased; font-feature-settings: "ss01", "cv11"; }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.035em; font-weight: 500; text-wrap: balance; }
+  h1 { @apply text-2xl; }
+  h2 { @apply text-lg; }
+  p { text-wrap: pretty; }
+  select option { background: #141414; color: #fafafa; }
+  ::selection { background: rgb(250 250 250 / 0.9); color: #0a0a0a; }
+  input[type="color"] { background: transparent; }
+  input[type="range"] { accent-color: var(--color-fg); }
+  :focus-visible { outline-color: rgb(250 250 250 / 0.6); }
+  a { text-underline-offset: 4px; }
+  .tabular, time, [data-num] { font-variant-numeric: tabular-nums; }
+  /* Scrollbars in the palette */
+  * { scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.18) transparent; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgb(255 255 255 / 0.16); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: rgb(255 255 255 / 0.28); }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* Free tools: Indic fallbacks after the Latin fonts (glyph-by-glyph fallback keeps Latin in Geist). */
+.tools-fonts { font-family: var(--font-geist), var(--font-inter), var(--font-deva), var(--font-telugu), ui-sans-serif, system-ui, sans-serif; }
+.tools-fonts h1, .tools-fonts h2, .tools-fonts h3 { font-family: var(--font-sora), var(--font-geist), var(--font-deva), var(--font-telugu), sans-serif; }
+
+/* Scroll reveal (toggled by <Reveal/>): content is visible by default; only enhanced once JS marks it. */
+.reveal { transition: opacity .9s var(--ease-out-expo), transform .9s var(--ease-out-expo); }
+.js .reveal:not(.in) { opacity: 0; transform: translateY(18px); }
+
+/* Signature: headline letters enter on a staggered keyframe timeline (see <Kinetic/>). */
+.kinetic .ch { display: inline-block; animation: letter-in 1s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 28ms + 120ms); }
+.keyline { transform-origin: 0 50%; animation: keyline 1.4s var(--ease-out-expo) both .5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .js .reveal:not(.in) { opacity: 1; transform: none; }
+}

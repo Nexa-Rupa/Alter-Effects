@@ -1,0 +1,18 @@
+# Keep build contexts small and secrets out of images.
+**/node_modules
+**/.next
+**/dist
+**/.work
+**/*.log
+.env
+.env.*
+!.env.example
+.git
+.github
+.claude
+docs
+packages/engine/samples/out
+apps/web/public/ort
+apps/web/public/live
+apps/web/public/__test
+**/*.tsbuildinfo

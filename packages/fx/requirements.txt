@@ -1,0 +1,5 @@
+# Effects engine dependencies (Python 3.10+). Headless OpenCV: no GUI libraries needed on servers.
+numpy
+opencv-python-headless
+pillow
+mediapipe
