@@ -4,6 +4,14 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "description": "Alter Effects — editorial motion-graphics videos from an organisation's own content, with any AI provider.",
+  "homepage": "https://github.com/Nexa-Rupa/Alter-Effects#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nexa-Rupa/Alter-Effects.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nexa-Rupa/Alter-Effects/issues"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

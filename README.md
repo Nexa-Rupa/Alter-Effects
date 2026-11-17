@@ -313,7 +313,7 @@ npm run e2e                       # free tools, signup → brand → video, live
 
 ## 🤝 Contributing
 
-Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). In short: `npm run typecheck && npm test && npm run build` must pass, and a new recipe needs a `sample()` that fits its own slot schema (the tests check it). Security reports: [SECURITY.md](SECURITY.md).
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). In short: `npm run typecheck && npm test && npm run build` must pass, and a new recipe needs a `sample()` that fits its own slot schema (the tests check it). Please follow the [code of conduct](CODE_OF_CONDUCT.md). Security reports: [SECURITY.md](SECURITY.md).
 
 ## 🙏 Credits
 
