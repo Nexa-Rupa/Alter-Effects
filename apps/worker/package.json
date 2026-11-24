@@ -13,7 +13,7 @@
     "@altereffects/db": "0.1.0",
     "@altereffects/engine": "0.1.0",
     "@altereffects/shared": "0.1.0",
-    "puppeteer-core": "^25.12.0",
+    "puppeteer-core": "^25.18.1",
     "@altereffects/fx": "0.1.0"
   }
 }
